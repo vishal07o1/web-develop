@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>f1 stats</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      .container {
+        text-align: center;
+        background: linear-gradient(
+          0.25turn,
+          red,
+          blue
+        ); /* linear gradient is made up of two colors */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 50px;
+        border-radius: 10px;
+        height: 100%;
+      }
+      .content {
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 90%;
+      }
+      .logo {
+        width: 50vh;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+      h1 {
+        font-size: 2.6rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 1.2rem;
+        color: #666;
+        padding: 10px 0;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 20px;
+      }
+      input[type="email"] {
+        padding: 10px;
+        width: 250px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 7px;
+        border: none;
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+        margin: 5px;
+        transition: background-color 2s ease; /* it is used to give a smooth transition effect when we hover over the button which we have written below */
+        width: 272px;
+      }
+      button:hover {
+        background-color: #555;
+      }
+      svg {
+        position: absolute;
+        bottom: 0; /* it is used to position the svg at the bottom of the page */
+        left: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <img src="../html/img.png" alt="ferrari car" class="logo" />
+        <h1>Coming Soon...</h1>
+        <p>We are working hard to bring you a new experience. Stay tuned!</p>
+        <form id="notify-form">
+          <input type="email" placeholder="Enter your email" required />
+          <button type="submit">Notify Me</button>
+        </form>
+      </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#ff5500"
+        fill-opacity="1"
+        d="M0,64L20,106.7C40,149,80,235,120,250.7C160,267,200,213,240,192C280,171,320,181,360,170.7C400,160,440,128,480,112C520,96,560,96,600,112C640,128,680,160,720,192C760,224,800,256,840,266.7C880,277,920,267,960,229.3C1000,192,1040,128,1080,122.7C1120,117,1160,171,1200,197.3C1240,224,1280,224,1320,197.3C1360,171,1400,117,1420,90.7L1440,64L1440,320L1420,320C1400,320,1360,320,1320,320C1280,320,1240,320,1200,320C1160,320,1120,320,1080,320C1040,320,1000,320,960,320C920,320,880,320,840,320C800,320,760,320,720,320C680,320,640,320,600,320C560,320,520,320,480,320C440,320,400,320,360,320C320,320,280,320,240,320C200,320,160,320,120,320C80,320,40,320,20,320L0,320Z"
+      ></path>
+    </svg>
+  </body>
+</html>

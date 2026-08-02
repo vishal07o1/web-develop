@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal Choudhary — CS Student &amp; Competitive Programmer</title>
+    <style>
+        :root {
+            --bg: #0b0e13;
+            --bg-raise: #12161d;
+            --surface: #161b23;
+            --border: #232a35;
+            --text: #e7ecf2;
+            --muted: #8b95a5;
+            --amber: #ffb454;
+            --amber-dim: #8a6a3a;
+            --accept: #4ade80;
+            --wrong: #ff6b6b;
+            --pending: #7d8590;
+            --mono: 'IBM Plex Mono', 'Consolas', monospace;
+            --sans: 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ::selection {
+            background: var(--amber-dim);
+            color: #fff;
+        }
+
+        /* background grid texture — graph paper, an algorithmic-thinking cue */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(255, 180, 84, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 180, 84, 0.035) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+        }
+
+        .wrap {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(11, 14, 19, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+
+        .brand {
+            font-family: var(--mono);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .brand span {
+            color: var(--amber);
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 26px;
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .navlinks a:hover {
+            color: var(--amber);
+        }
+
+        .navlinks .num {
+            color: var(--amber-dim);
+            margin-right: 4px;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: var(--mono);
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        @media (max-width:680px) {
+            .navlinks {
+                position: fixed;
+                top: 56px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: var(--bg-raise);
+                border-bottom: 1px solid var(--border);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.25s ease;
+            }
+
+            .navlinks.open {
+                max-height: 320px;
+            }
+
+            .navlinks a {
+                padding: 14px 24px;
+                border-top: 1px solid var(--border);
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+        }
+
+        /* ---------- HERO / TERMINAL ---------- */
+        header.hero {
+            padding: 72px 0 56px;
+        }
+
+        .terminal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+
+        .term-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--bg-raise);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot.r {
+            background: #ff5f56;
+        }
+
+        .dot.y {
+            background: #ffbd2e;
+        }
+
+        .dot.g {
+            background: #27c93f;
+        }
+
+        .term-title {
+            margin-left: 8px;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .term-body {
+            padding: 28px 26px 32px;
+            font-family: var(--mono);
+            font-size: 14px;
+        }
+
+        .term-line {
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .term-line .prompt {
+            color: var(--accept);
+        }
+
+        .term-line .cmd {
+            color: var(--text);
+        }
+
+        .term-output {
+            margin: 14px 0 22px;
+        }
+
+        .term-name {
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 9px;
+            height: 1.1em;
+            background: var(--amber);
+            vertical-align: text-bottom;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .term-role {
+            color: var(--amber);
+            font-size: 15px;
+            margin-top: 6px;
+        }
+
+        .term-loc {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid var(--border);
+            background: var(--bg-raise);
+            padding: 8px 13px;
+            border-radius: 6px;
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--text);
+            transition: border-color 0.15s, color 0.15s, transform 0.15s;
+        }
+
+        .pill:hover {
+            border-color: var(--amber-dim);
+            color: var(--amber);
+            transform: translateY(-1px);
+        }
+
+        .pill svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        /* ---------- SECTION SCAFFOLD ---------- */
+        section {
+            padding: 52px 0;
+        }
+
+        section+section {
+            border-top: 1px solid var(--border);
+        }
+
+        .sec-head {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .sec-tag {
+            font-family: var(--mono);
+            color: var(--amber-dim);
+            font-size: 13px;
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .sec-rule {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ---------- EDUCATION ---------- */
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 22px 24px;
+        }
+
+        .edu-top {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .edu-school {
+            font-weight: 700;
+            font-size: 16.5px;
+        }
+
+        .edu-date {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        .edu-degree {
+            color: var(--muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .edu-cgpa {
+            color: var(--amber);
+            font-weight: 600;
+        }
+
+        .coursework {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 4px 9px;
+            border-radius: 4px;
+        }
+
+        /* ---------- SKILLS ---------- */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+        }
+
+        .skill-cat {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--amber);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+
+        .skill-items {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        /* ---------- PROJECTS ---------- */
+        .proj-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 22px 24px;
+            margin-bottom: 16px;
+        }
+
+        .proj-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .proj-name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .proj-stack {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .proj-desc {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ---------- SUBMISSION LOG (achievements as verdicts) ---------- */
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: var(--mono);
+            font-size: 13.5px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .log-table thead th {
+            text-align: left;
+            padding: 10px 16px;
+            background: var(--bg-raise);
+            color: var(--muted);
+            font-weight: 500;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .log-table tbody td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .log-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .verdict {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .verdict.ac {
+            color: var(--accept);
+        }
+
+        .verdict::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .log-plat {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .log-link {
+            color: var(--amber-dim);
+        }
+
+        .log-link:hover {
+            color: var(--amber);
+        }
+
+        /* ---------- CERTS / EXTRA / POR ---------- */
+        .simple-list {
+            list-style: none;
+        }
+
+        .simple-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 14.5px;
+        }
+
+        .simple-list li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--amber);
+            font-family: var(--mono);
+            font-weight: 700;
+        }
+
+        .simple-list li a {
+            color: var(--amber);
+            border-bottom: 1px dotted var(--amber-dim);
+        }
+
+        .simple-list strong {
+            color: var(--text);
+        }
+
+        .por-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 22px;
+        }
+
+        .por-top {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .por-role {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .por-date {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .por-desc {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            padding: 36px 0 48px;
+            text-align: center;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 12.5px;
+        }
+
+        footer a {
+            color: var(--amber);
+        }
+
+        footer .foot-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* focus visibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--amber);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="wrap">
+            <div class="brand">vishal<span> </span>portfolio<span></span></div>
+            <div class="navlinks" id="navlinks">
+                <a href="#education"><span class="num">01</span>education</a>
+                <a href="#skills"><span class="num">02</span>skills</a>
+                <a href="#projects"><span class="num">03</span>projects</a>
+                <a href="#achievements"><span class="num">04</span>achievements</a>
+                <a href="#more"><span class="num">05</span>more</a>
+                <a href="#contact"><span class="num">06</span>contact</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">≡</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="wrap">
+            <div class="terminal">
+                <div class="term-bar">
+                    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                    <span class="term-title"></span>
+                </div>
+                <div class="term-body">
+                    <div class="term-line"><span class="prompt"></span> <span class="cmd"></span></div>
+                    <div class="term-output">
+                        <div class="term-name">Vishal Choudhary<span class="cursor"></span></div>
+                        <div class="term-role">B.Tech CSE student · Competitive Programmer</div>
+                        <div class="term-loc">Jaipur, Rajasthan, India</div>
+                    </div>
+                    <div class="term-line"><span class="prompt"></span> <span class="cmd"></span>
+                    </div>
+                    <div class="contact-row">
+                        <a class="pill" href="tel:+919348013116">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                            +91-9348013116
+                        </a>
+                        <a class="pill" href="mailto:eduvishal007@gmail.com">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16v16H4z" fill="none" />
+                                <path d="M22 6l-10 7L2 6" />
+                                <path d="M2 6h20v12H2z" />
+                            </svg>
+                            eduvishal007@gmail.com
+                        </a>
+                        <a class="pill" href="https://www.linkedin.com/in/vishal-choudhary-435b25326/" target="_blank"
+                            rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.94c0-1.66-.03-3.8-2.32-3.8-2.32 0-2.68 1.81-2.68 3.68V23h-4V8z" />
+                            </svg>
+                            LinkedIn
+                        </a>
+                        <a class="pill" href="https://github.com/vishal07o1" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.99 3.24 9.22 7.73 10.72.56.1.77-.24.77-.54 0-.27-.01-1-.02-1.96-3.15.69-3.81-1.51-3.81-1.51-.51-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.74 2.65 1.24 3.3.95.1-.74.4-1.24.72-1.53-2.51-.29-5.15-1.26-5.15-5.6 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16a10.9 10.9 0 0 1 5.72 0c2.18-1.47 3.14-1.16 3.14-1.16.62 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.35-2.65 5.31-5.17 5.59.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.2.65.78.54C19.76 20.71 23 16.48 23 11.5 23 5.24 18.27.5 12 .5z" />
+                            </svg>
+                            GitHub
+                        </a>
+                        <a class="pill" href="https://leetcode.com/u/vishalo7o1/" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2 4 12l5.5 5.5M4 12h13" />
+                                <path d="M8 20h9a3 3 0 0 0 0-6h-2" opacity="0" />
+                            </svg>
+                            LeetCode
+                        </a>
+                        <a class="pill" href="https://codeforces.com/profile/hotzo7" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="2" y="14" width="5" height="8" rx="1" />
+                                <rect x="9.5" y="8" width="5" height="14" rx="1" />
+                                <rect x="17" y="2" width="5" height="20" rx="1" />
+                            </svg>
+                            Codeforces
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="education">
+        <div class="wrap">
+            <div class="sec-head"><span class="sec-tag">01</span><span class="sec-title">Education</span>
+                <div class="sec-rule"></div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-top">
+                    <div class="edu-school">JECRC University, Jaipur</div>
+                    <div class="edu-date">Aug 2024 – Jun 2028</div>
+                </div>
+                <div class="edu-degree">Bachelor of Technology (B.Tech), Computer Science &amp; Engineering — <span
+                        class="edu-cgpa">CGPA 7.11/10</span></div>
+                <div class="coursework">
+                    <span class="tag">DSA</span>
+                    <span class="tag">OOP</span>
+                    <span class="tag">DBMS</span>
+                    <span class="tag">Operating Systems</span>
+                    <span class="tag">Computer Networks</span>
+                    <span class="tag">Cloud Computing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="wrap">
+            <div class="sec-head"><span class="sec-tag">02</span><span class="sec-title">Technical Skills</span>
+                <div class="sec-rule"></div>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <div class="skill-cat">Languages</div>
+                    <div class="skill-items">C++, Python, SQL</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-cat">Web Technologies</div>
+                    <div class="skill-items">HTML5, CSS3, Tailwind CSS, JavaScript</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-cat">Database Management</div>
+                    <div class="skill-items">MySQL</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-cat">Cloud &amp; DevOps</div>
+                    <div class="skill-items">Git, GitHub, Docker</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-cat">Soft Skills</div>
+                    <div class="skill-items">Problem Solving, Critical Thinking</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="wrap">
+            <div class="sec-head"><span class="sec-tag">03</span><span class="sec-title">Projects</span>
+                <div class="sec-rule"></div>
+            </div>
+            <div class="proj-card">
+                <div class="proj-top">
+                    <div class="proj-name">Hangman Game</div>
+                </div>
+                <div class="proj-stack">Python</div>
+                <div class="proj-desc">A command-line Hangman game featuring random word selection, input validation, a
+                    limited number of attempts, and user-friendly gameplay.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <div class="wrap">
+            <div class="sec-head"><span class="sec-tag">04</span><span class="sec-title">Achievements</span>
+                <div class="sec-rule"></div>
+            </div>
+            <table class="log-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Result</th>
+                        <th>Verdict</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="log-plat">LeetCode</td>
+                        <td>Rating 1480 · 25+ problems solved</td>
+                        <td><span class="verdict ac">Accepted</span></td>
+                        <td><a class="log-link" href="https://leetcode.com/u/vishalo7o1/" target="_blank"
+                                rel="noopener">view →</a></td>
+                    </tr>
+                    <tr>
+                        <td class="log-plat">Codeforces</td>
+                        <td>Max rating 435 · 45+ problems solved</td>
+                        <td><span class="verdict ac">Accepted</span></td>
+                        <td><a class="log-link" href="https://codeforces.com/profile/hotzo7" target="_blank"
+                                rel="noopener">view →</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="more">
+        <div class="wrap">
+            <div class="sec-head"><span class="sec-tag">05</span><span class="sec-title">Certifications</span>
+                <div class="sec-rule"></div>
+            </div>
+            <ul class="simple-list" style="margin-bottom:40px;">
+                <li><strong>CSS (Basic) Certified</strong> — HackerRank
+                    <a href="https://www.hackerrank.com/certificates/b626a7ba376b" target="_blank" rel="noopener">view
+                        certificate</a>
+                </li>
+            </ul>
+
+            <div class="sec-head"><span class="sec-tag"></span><span class="sec-title"
+                    style="font-size:18px;">Extracurricular Activities</span>
+                <div class="sec-rule"></div>
+            </div>
+            <ul class="simple-list" style="margin-bottom:40px;">
+                <li>Volunteered mentoring students from underprivileged academic backgrounds.</li>
+                <li>Actively participated in competitive coding and hackathons, sharpening problem-solving and team
+                    collaboration.</li>
+            </ul>
+
+            <div class="sec-head"><span class="sec-tag"></span><span class="sec-title" style="font-size:18px;">Positions
+                    of Responsibility</span>
+                <div class="sec-rule"></div>
+            </div>
+            <div class="por-card">
+                <div class="por-top">
+                    <div class="por-role">Volunteer, Event Execution Committee — JU Rhythm '25</div>
+                    <div class="por-date">Mar 2025</div>
+                </div>
+                <div class="por-desc">Helped the team organize 15+ events at JECRC University, boosting student
+                    participation by 20%.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="wrap">
+            <div class="sec-head"><span class="sec-tag">06</span><span class="sec-title">Get in Touch</span>
+                <div class="sec-rule"></div>
+            </div>
+            <p style="color:var(--muted); max-width:520px; margin-bottom:20px;">
+                Open to internships, collaborations, and interesting problems to solve. Reach out through any of the
+                channels below.
+            </p>
+            <div class="contact-row">
+                <a class="pill" href="mailto:eduvishal007@gmail.com">Email</a>
+                <a class="pill" href="tel:+919348013116">Call</a>
+                <a class="pill" href="https://www.linkedin.com/in/vishal-choudhary-435b25326/" target="_blank"
+                    rel="noopener">LinkedIn</a>
+                <a class="pill" href="https://github.com/vishal07o1" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="foot-links">
+            <a href="mailto:eduvishal007@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/vishal-choudhary-435b25326/" target="_blank"
+                rel="noopener">LinkedIn</a>
+            <a href="https://github.com/vishal07o1" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://leetcode.com/u/vishalo7o1/" target="_blank" rel="noopener">LeetCode</a>
+            <a href="https://codeforces.com/profile/hotzo7" target="_blank" rel="noopener">Codeforces</a>
+        </div>
+        <div>© 2026 Vishal Choudhary. Built with HTML &amp; CSS.</div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('navToggle');
+        const links = document.getElementById('navlinks');
+        toggle.addEventListener('click', () => links.classList.toggle('open'));
+        links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+    </script>
+
+</body>
+
+</html>

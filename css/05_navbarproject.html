@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navbar with pseudo elements</title>
+    <style>
+      /* ::after :- it is an pseudo elments an artifical line is used after the line other is also there 
+        that is ::before and many others it is an inline element */
+
+      body {
+        font-family:
+          Arial, Helvetica, sans-serif; /* it is used to give the font style of the text */
+        background-color: brown;
+        margin: 0;
+        padding: 0;
+        height: 100vh; /*height is the height from the top the screen where i want the element to be placed */
+      }
+      .nav-container {
+        margin-bottom: 20px; /* it is used to give the space between the nav containers */
+      }
+      h2 {
+        color: white;
+        margin-bottom: 20px; /* it is used to give the space between the h2 and the nav */
+      }
+      .nav1 {
+        border: 1px solid white; /* it is used to give the border of the nav */
+        padding: 10px; /* it is used to give the space between the content and the border of the nav */
+      }
+      .nav1 ul {
+        list-style: none; /* it is used to remove the default list style of the ul */
+        display: flex; /* it is used to make the ul a flex container so that we can use flex properties on its children elements */
+        justify-content: space-around; /* it is used to give the space between the li elements */
+        padding: 0; /* it is used to remove the default padding of the ul */
+        margin: 0; /* it is used to remove the default margin of the ul */
+      }
+      .nav1 li {
+        position: relative; /* it is used to make the li a relative element so that we can use absolute positioning on its pseudo elements */
+      }
+      .nav1 a {
+        color: white; /* it is used to give the color of the text in the a */
+        text-decoration: none; /* it is used to remove the default underline of the a */
+        padding: 5px 10px; /* it is used to give the space between the content and the border of the a */
+        position: relative; /* it is used to make the a a relative element so that we can use absolute positioning on its pseudo elements */
+      }
+      .nav1 .login-btn {
+        background-color: white; /* it is used to give the background color of the button */
+        color: brown; /* it is used to give the color of the text in the button */
+        border: none; /* it is used to remove the border of the button */
+        padding: 5px 10px; /* it is used to give the space between the content and the border of the button */
+        border-radius: 5px; /* it is used to make the edges of the button round */
+        cursor: pointer; /* it is used to change the cursor when we hover over the button */
+      }
+      .nav1 a::after {
+        content: "abc"; /* it is used to create an empty content for the pseudo element */
+        position: absolute; /* it is used to make the pseudo element an absolute element so that we can position it */
+        left: 0; /* it is used to position the pseudo element from the left */
+        bottom: -2px; /* it is used to position the pseudo element from the bottom */
+        width: 0; /* it is used to give the width of the pseudo element */
+        height: 2px; /* it is used to give the height of the pseudo element */
+        background-color: white; /* it is used to give the background color of the pseudo element */
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out; /* it is used to give the transition effect when we hover over the a */
+      }
+      .nav1 a:hover::after {
+        content: ""; /* it is used to create an empty content for the pseudo element */
+        position: absolute; /* it is used to make the pseudo element an absolute element so that we can position it */
+        left: 0; /* it is used to position the pseudo element from the left */
+        bottom: -2px; /* it is used to position the pseudo element from the bottom */
+        width: 100%; /* it is used to give the width of the pseudo element */
+        height: 2px; /* it is used to give the height of the pseudo element */
+        background-color: white; /* it is used to give the background color of the pseudo element */
+        transform: scaleX(1);
+      }
+
+      .nav2 {
+        border: 1px solid white; /* it is used to give the border of the nav */
+        padding: 10px; /* it is used to give the space between the content and the border of the nav */
+        width: 200px; /* it is used to give the width of the nav */
+        /* it is used to give the height of the nav */
+      }
+      .nav2 ul {
+        list-style: none; /* it is used to remove the default list style of the ul */
+        padding: 0; /* it is used to remove the default padding of the ul */
+        margin: 0; /* it is used to remove the default margin of the ul */
+      }
+      .nav2 li {
+        margin-bottom: 10px; /* it is used to give the space between the li elements */
+      }
+      .nav2 a {
+        color: white; /* it is used to give the color of the text in the a */
+        text-decoration: none; /* it is used to remove the default underline of the a */
+        padding: 5px 10px; /* it is used to give the space between the content and the border of the a */
+        display: block; /* it is used to make the a a block element so that we can use padding on it */
+      }
+      .nav2 a:hover {
+        background-color: white; /* it is used to change the background color of the a when we hover over it */
+        color: brown; /* it is used to change the color of the text in the a when we hover over it */
+      }
+      .nav2 button {
+        background-color: white; /* it is used to give the background color of the button */
+        color: brown; /* it is used to give the color of the text in the button */
+        border: none; /* it is used to remove the border of the button */
+        padding: 5px 10px; /* it is used to give the space between the content and the border of the button */
+        border-radius: 5px; /* it is used to make the edges of the button round */
+        cursor: pointer; /* it is used to change the cursor when we hover over the button */
+        margin-left: 9px; /* it is used to push the button to the right */
+        width: 80%; /* it is used to give the width of the button */
+      }
+      .nav2 button:hover {
+        background-color: green; /* it is used to change the background color of the button when we hover over it */
+        color: white; /* it is used to change the color of the text in the button when we hover over it */
+      }
+      .nav2 a::after {
+        content: ""; /* it is used to create an empty content for the pseudo element */
+        position: absolute; /* it is used to make the pseudo element an absolute element so that we can position it */
+        left: 0; /* it is used to position the pseudo element from the left */
+        bottom: -2px; /* it is used to position the pseudo element from the bottom */
+        width: 0; /* it is used to give the width of the pseudo element */
+        height: 2px; /* it is used to give the height of the pseudo element */
+        background-color: white; /* it is used to give the background color of the pseudo element */
+        transform: scaleX(0);
+        transition: transform 0.3s ease-in-out; /* it is used to give the transition effect when we hover over the a */
+      }
+      .nav2 a:hover::after {
+        content: ""; /* it is used to create an empty content for the pseudo element */
+        position: absolute; /* it is used to make the pseudo element an absolute element so that we can position it */
+        left: 0; /* it is used to position the pseudo element from the left */
+        bottom: -2px; /* it is used to position the pseudo element from the bottom */
+        width: 100%; /* it is used to give the width of the pseudo element */
+        height: 2px; /* it is used to give the height of the    pseudo element */
+      }
+      navbar2 {
+        list-style: none; /* it is used to remove the default list style of the ul */
+        padding: 0; /* it is used to remove the default padding of the ul */
+        margin: 0; /* it is used to remove the default margin of the ul */
+      }
+
+      .nav3 {
+        border: 1px solid white; /* it is used to give the border of the nav */
+        padding: 10px; /* it is used to give the space between the content and the border of the nav */
+      }
+      .nav3 ul {
+        list-style: none; /* it is used to remove the default list style of the ul */
+        display: flex; /* it is used to make the ul a flex container so that we can use flex properties on its children elements */
+        justify-content: space-around; /* it is used to give the space between the li elements */
+        align-items: center; /* it is used to align the li elements in the center */
+        padding: 0; /* it is used to remove the default padding of the ul */
+        margin: 0; /* it is used to remove the default margin of the ul */
+      }
+      .nav3 li {
+        position: relative; /* it is used to make the li a relative element so that we can use absolute positioning on its pseudo elements */
+      }
+      .nav3 a {
+        color: white; /* it is used to give the color of the text in the a */
+        text-decoration: none; /* it is used to remove the default underline of the a */
+        padding: 5px 10px; /* it is used to give the space between the content and the border of the a */
+        position: relative; /* it is used to make the a a relative element so that we can use absolute positioning on its pseudo elements */
+        display: block; /* it is used to make the a a block element so that we can use padding on it */
+      }
+      .nav3 .dropdown-content {
+        display: none; /* it is used to hide the dropdown content */
+        position: absolute; /* it is used to make the dropdown content an absolute element so that we can position it */
+        background-color: black; /* it is used to give the background color of the dropdown content */
+        min-width: 160px; /* it is used to give the minimum width of the dropdown content */
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* it is used to give the shadow effect to the dropdown content */
+        z-index: 1; /* it is used to make sure that the dropdown content is on top of other elements */
+      }
+      .nav3 .dropdown:hover .dropdown-content {
+        display: block; /* it is used to show the dropdown content when we hover over the dropdown */
+        position: absolute; /* it is used to make the dropdown content an absolute element so that we can position it */
+      }
+      .nav3 .login-btn {
+        background-color: white; /* it is used to give the background color of the button */
+        color: brown; /* it is used to give the color of the text in the button */
+        border: none; /* it is used to remove the border of the button */
+        padding: 5px 10px; /* it is used to give the space between    the content and the border of the button */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-container">
+      <h2>variation 1: Horizontal with underline effect</h2>
+      <nav class="nav1">
+        <ul class="navbar1">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">product</a></li>
+          <li><button class="login-btn" type="submit">login</button></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="nav-container">
+      <h2>variation 2: vertical with hover effect</h2>
+      <nav class="nav2">
+        <ul class="navbar2">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">product</a></li>
+        </ul>
+        <button type="submit">login</button>
+      </nav>
+    </div>
+    <div class="nav-container">
+      <h2>variation 3: Horizontal with dropdown</h2>
+      <nav class="nav3">
+        <ul class="navbar3">
+          <li><a href="#">Home</a></li>
+          <li class="dropdown">
+            <a href="#">About</a>
+            <div class="dropdown-content">
+              <a href="#">our story</a>
+              <a href="#">team</a>
+              <a href="#">contact</a>
+            </div>
+          </li>
+          <li><a href="#">product</a></li>
+          <button type="submit">login</button>
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>

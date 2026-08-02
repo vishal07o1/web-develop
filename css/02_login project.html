@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login project</title>
+  </head>
+  <style>
+    body {
+      font-family:
+        Arial, Helvetica, sans-serif; /* it is used to give the font style of the text */
+      background-color: brown;
+      margin: 0; /* it is used to remove the default margin of the body */
+      padding: 0; /* it is used to remove the default padding of the body */
+
+      /* vh-: means viewport height that means if i am seeing in big screen i want in full length 
+      if i am seeing in small screen it calculate the height */
+      height: 100vh; /*height is the height from the top the screen where i want the element to be placed and
+      if height is 400px below properties tell to be in center of that 400px */
+
+      /* flexbox-:it is a display properties that helps to move elements in much faster and easier
+       */
+      display: flex; /* it is used to make the body a flex container so that we can use flex properties on its children elements */
+      /* it doesnt change anything until we add below two properties  */
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      background-color: white;
+      border-radius: 10px; /* it is used to make the edges of the card round */
+      padding: 20px; /* it is used to give the space between the content and the border of the card */
+      width: 300px; /* it is used to give the width of the card */
+    }
+    h2 {
+      text-align: center; /* it is used to align the text in the center */
+    }
+    input {
+      width: 80%; /* it is used to give the width of the input field */
+      padding: 10px; /* it is used to give the space between the content and the border of the input field */
+      margin: 10px 0; /* it is used to give the space between the input fields */
+      border: 1px solid #ccc; /* it is used to give the border of the input field */
+      border-radius: 5px; /* it is used to make the edges of the input field round */
+    }
+    /* flex properties run on parent element */
+    form {
+      display: flex; /* it is used to make the form a flex container so that we can use flex properties on its children elements */
+      flex-direction: column; /* it is used to arrange the children elements in a column */
+      align-items: center; /* it is used to align the children elements in the center */
+    }
+    button {
+      width: 80%; /* it is used to give the width of the button */
+      padding: 10px; /* it is used to give the space between the content and the border of the button */
+      margin: 10px 0; /* it is used to give the space between the button and the input fields */
+      border: none; /* it is used to remove the border of the button */
+      border-radius: 5px; /* it is used to make the edges of the button round */
+      background-color: brown; /* it is used to give the background color of the button */
+      color: white; /* it is used to give the color of the text in the button */
+      cursor: pointer; /* it is used to change the cursor when we hover over the button */
+    }
+    button:hover {
+      background-color: green; /* it is used to change the background color of the button when we hover over it */
+    }
+  </style>
+
+  <body>
+    <div class="card">
+      <form action="">
+        <h2>Login</h2>
+        <input type="email" placeholder="email" />
+        <input type="password" placeholder="password" />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </body>
+</html>
