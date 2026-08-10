@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>positioning easily</title>
+    <style>
+      .static-box {
+        position: static; /* it is used to make the element a static element */
+        background-color: red; /* it is used to give the background color of the element */
+        width: 100px; /* it is used to give the width of the element */
+        height: 100px; /* it is used to give the height of the element */
+      }
+      .relative-box {
+        position: relative; /* it is used to make the element a relative element */
+        background-color: green; /* it is used to give the background color of the element */
+        width: 100px; /* it is used to give the width of the element */
+        height: 100px; /* it is used to give the height of the element */
+        top: 20px; /* it is used to move the element 20px down from its original position */
+        left: 20px; /* it is used to move the element 20px to the right from its original position */
+      }
+      .absolute-box {
+        position: absolute; /* it is used to make the element an absolute element */
+        background-color: blue; /* it is used to give the background color of the element */
+        width: 100px; /* it is used to give the width of the element */
+        height: 100px; /* it is used to give the height of the element */
+        top: 20px; /* it is used to move the element 20px down from its original position */
+        left: 20px; /* it is used to move the element   20px to the right from its original position */
+      }
+      .parent-container {
+        position: relative; /* it is used to make the parent container a relative element */
+        width: 300px; /* it is used to give the width of the parent container */
+        height: 300px; /* it is used to give the height of the parent container */
+        background-color: yellow; /* it is used to give the background color of the parent container */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent-container">
+      <div class="static-box">hi</div>
+      <div class="relative-box">hello</div>
+      <div class="absolute-box">hey</div>
+    </div>
+  </body>
+</html>

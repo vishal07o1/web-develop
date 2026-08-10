@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>layout-like grid</title>
+    <!-- layout -->
+    <link rel="stylesheet" href="./output.css" />
+  </head>
+  <body>
+    <div class="m-4 grid gap-4 sm:grid-cols-2">
+      <div class="min-h-[100px] rounded-l-lg shadow bg-orange-400"></div>
+      <div class="min-h-[100px] rounded-l-lg shadow bg-green-300"></div>
+    </div>
+    <div class="m-4 grid gap-4 sm:grid-cols-3">
+      <!-- sm: it means smaller and above it auto matically take care of smaller/mobile screen
+       if we add grid-cols-2 it stays same for all the devices -->
+      <div class="min-h-[100px] rounded-l-lg bg-orange-400 shadow"></div>
+      <div class="min-h-[100px] rounded-l-lg bg-green-300 shadow"></div>
+      <div class="min-h-[100px] rounded-l-lg bg-red-500 shadow"></div>
+    </div>
+    <!-- now many developer like to column into 12 col when we want something
+     to take the what portion we write sm:col-span-(portion ex-2) 
+     grid-cols-() it is the default for smaller screen and sm:grid-cols-() it is for smaller and above -->
+    <div class="m-4 grid gap-4 sm:grid-cols-12 grid-cols-2">
+      <div
+        class="min-h-[100px] rounded-l-lg shadow bg-orange-400 sm:col-span-2"
+      ></div>
+      <div
+        class="min-h-[100px] rounded-l-lg shadow bg-green-300 sm:col-span-10"
+      ></div>
+    </div>
+  </body>
+</html>

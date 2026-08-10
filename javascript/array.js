@@ -56,5 +56,5 @@ console.log(worldcities);
 // check if london is in the array and store the result in a variable called islondonInlist
 
 let citybucket = ["kyoto", "london", "ny"];
-let islondonInlist = citybucket.includes("london");
+let islondonInlist = citybucket.includes("london"); //include provides true or false only
 console.log(islondonInlist);
